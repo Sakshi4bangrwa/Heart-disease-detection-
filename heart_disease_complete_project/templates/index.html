@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Disease Predictor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <h2 class="mb-4">Heart Disease Prediction Form</h2>
+    <form method="POST">
+        {% for field in ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg',
+                         'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal'] %}
+        <div class="form-group">
+            <label>{{ field.capitalize() }}</label>
+            <input type="number" step="any" class="form-control" name="{{ field }}"
+                   value="{{ form_data.get(field, '') }}">
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+    <br>
+    {% if prediction_text %}
+        <div class="alert alert-info" role="alert">{{ prediction_text|safe }}</div>
+    {% endif %}
+    {% if confidence %}
+        <p>Model confidence: {{ confidence }}%</p>
+    {% endif %}
+</div>
+</body>
+</html>
